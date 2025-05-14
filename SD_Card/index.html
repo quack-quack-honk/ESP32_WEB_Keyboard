@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 HID Controller</title>
+           </div>        <footer class="version">
+            <p>Version 1.2.2</p>
+        </footer>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ESP32 HID Controller</h1>
+            <div id="connectionStatus">Connected</div>
+        </header>
+
+        <div class="touchpad-container">
+            <div id="touchpad"></div>
+            <div class="mouse-buttons">
+                <button id="leftClick">Left Click</button>
+                <button id="rightClick">Right Click</button>                <div class="scroll-buttons">
+                    <button class="key" data-keycode="220" id="scrollUp">▲</button>
+                    <button class="key" data-keycode="221" id="scrollDown">▼</button>
+                </div><div class="arrow-keys">
+                    <div class="arrow-row">
+                        <button class="key" data-keycode="218">↑</button>
+                    </div>
+                    <div class="arrow-row">
+                        <button class="key" data-keycode="216">←</button>
+                        <button class="key" data-keycode="219">↓</button>
+                        <button class="key" data-keycode="215">→</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="keyboard-container">
+            <div class="keyboard-row function-row">
+                <button class="key" data-keycode="27">Esc</button>
+                <button class="key" data-keycode="194">F1</button>
+                <button class="key" data-keycode="195">F2</button>
+                <button class="key" data-keycode="196">F3</button>
+                <button class="key" data-keycode="197">F4</button>
+                <button class="key" data-keycode="198">F5</button>
+                <button class="key" data-keycode="199">F6</button>
+                <button class="key" data-keycode="200">F7</button>
+                <button class="key" data-keycode="201">F8</button>
+                <button class="key" data-keycode="202">F9</button>
+                <button class="key" data-keycode="203">F10</button>
+                <button class="key" data-keycode="204">F11</button>
+                <button class="key" data-keycode="205">F12</button>
+            </div>
+
+            <div class="keyboard-row navigation-row">
+                <button class="key" data-keycode="209">Insert</button>
+                <button class="key" data-keycode="210">Home</button>
+                <button class="key" data-keycode="211">PgUp</button>
+                <button class="key" data-keycode="212">Del</button>
+                <button class="key" data-keycode="213">End</button>
+                <button class="key" data-keycode="214">PgDn</button>
+            </div>
+
+            <div class="keyboard-row media-row">
+                <button class="key" data-keycode="173">Mute</button>
+                <button class="key" data-keycode="174">Vol−</button>
+                <button class="key" data-keycode="175">Vol+</button>
+                <button class="key" data-keycode="176">Next</button>
+                <button class="key" data-keycode="177">Prev</button>
+                <button class="key" data-keycode="178">Stop</button>
+                <button class="key" data-keycode="179">Play</button>
+            </div>
+
+            <div class="keyboard-row modifier-row">
+                <button class="key modifier" data-key="Ctrl" data-keycode="128" data-toggle="true">Ctrl</button>
+                <button class="key modifier" data-key="Alt" data-keycode="130" data-toggle="true">Alt</button>
+                <button class="key modifier" data-key="Shift" data-keycode="129" data-toggle="true">Shift</button>
+                <button class="key modifier" data-key="Win" data-keycode="131" data-toggle="true">≡</button>
+                <button class="key keyboard-toggle" data-type="keyboard">123</button>
+            </div>
+            
+            <!-- Lowercase Keyboard -->
+            <div id="keyboard-lowercase" class="keyboard-section">
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="113">q</button>
+                    <button class="key" data-keycode="119">w</button>
+                    <button class="key" data-keycode="101">e</button>
+                    <button class="key" data-keycode="114">r</button>
+                    <button class="key" data-keycode="116">t</button>
+                    <button class="key" data-keycode="121">y</button>
+                    <button class="key" data-keycode="117">u</button>
+                    <button class="key" data-keycode="105">i</button>
+                    <button class="key" data-keycode="111">o</button>
+                    <button class="key" data-keycode="112">p</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="97">a</button>
+                    <button class="key" data-keycode="115">s</button>
+                    <button class="key" data-keycode="100">d</button>
+                    <button class="key" data-keycode="102">f</button>
+                    <button class="key" data-keycode="103">g</button>
+                    <button class="key" data-keycode="104">h</button>
+                    <button class="key" data-keycode="106">j</button>
+                    <button class="key" data-keycode="107">k</button>
+                    <button class="key" data-keycode="108">l</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="122">z</button>
+                    <button class="key" data-keycode="120">x</button>
+                    <button class="key" data-keycode="99">c</button>
+                    <button class="key" data-keycode="118">v</button>
+                    <button class="key" data-keycode="98">b</button>
+                    <button class="key" data-keycode="110">n</button>
+                    <button class="key" data-keycode="109">m</button>
+                    <button class="key wide" data-keycode="8">⌫</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key widest" data-keycode="32">Space</button>
+                    <button class="key wide" data-keycode="13">Enter</button>
+                </div>
+            </div>
+
+            <!-- Uppercase Keyboard -->
+            <div id="keyboard-uppercase" class="keyboard-section">
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="81">Q</button>
+                    <button class="key" data-keycode="87">W</button>
+                    <button class="key" data-keycode="69">E</button>
+                    <button class="key" data-keycode="82">R</button>
+                    <button class="key" data-keycode="84">T</button>
+                    <button class="key" data-keycode="89">Y</button>
+                    <button class="key" data-keycode="85">U</button>
+                    <button class="key" data-keycode="73">I</button>
+                    <button class="key" data-keycode="79">O</button>
+                    <button class="key" data-keycode="80">P</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key wider" data-keycode="20">CapsLock</button>
+                    <button class="key" data-keycode="65">A</button>
+                    <button class="key" data-keycode="83">S</button>
+                    <button class="key" data-keycode="68">D</button>
+                    <button class="key" data-keycode="70">F</button>
+                    <button class="key" data-keycode="71">G</button>
+                    <button class="key" data-keycode="72">H</button>
+                    <button class="key" data-keycode="74">J</button>
+                    <button class="key" data-keycode="75">K</button>
+                    <button class="key" data-keycode="76">L</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="90">Z</button>
+                    <button class="key" data-keycode="88">X</button>
+                    <button class="key" data-keycode="67">C</button>
+                    <button class="key" data-keycode="86">V</button>
+                    <button class="key" data-keycode="66">B</button>
+                    <button class="key" data-keycode="78">N</button>
+                    <button class="key" data-keycode="77">M</button>
+                    <button class="key wide" data-keycode="8">⌫</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key widest" data-keycode="32">Space</button>
+                    <button class="key wide" data-keycode="13">Enter</button>
+
+                </div>
+            </div>
+
+            <!-- Numbers Keyboard -->
+            <div id="keyboard-numbers" class="keyboard-section">
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="49">1</button>
+                    <button class="key" data-keycode="50">2</button>
+                    <button class="key" data-keycode="51">3</button>
+                    <button class="key" data-keycode="52">4</button>
+                    <button class="key" data-keycode="53">5</button>
+                    <button class="key" data-keycode="54">6</button>
+                    <button class="key" data-keycode="55">7</button>
+                    <button class="key" data-keycode="56">8</button>
+                    <button class="key" data-keycode="57">9</button>
+                    <button class="key" data-keycode="48">0</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="45">-</button>
+                    <button class="key" data-keycode="61">=</button>
+                    <button class="key" data-keycode="91">[</button>
+                    <button class="key" data-keycode="93">]</button>
+                    <button class="key" data-keycode="92">\</button>
+                    <button class="key wide" data-keycode="8">⌫</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key widest" data-keycode="32">Space</button>
+                    <button class="key wide" data-keycode="13">Enter</button>
+                </div>
+            </div>
+
+            <!-- Symbols Keyboard -->
+            <div id="keyboard-symbols" class="keyboard-section">
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="96">`</button>
+                    <button class="key" data-keycode="33">!</button>
+                    <button class="key" data-keycode="64">@</button>
+                    <button class="key" data-keycode="35">#</button>
+                    <button class="key" data-keycode="36">$</button>
+                    <button class="key" data-keycode="37">%</button>
+                    <button class="key" data-keycode="94">^</button>
+                    <button class="key" data-keycode="38">&</button>
+                    <button class="key" data-keycode="42">*</button>
+                    <button class="key" data-keycode="40">(</button>
+                    <button class="key" data-keycode="41">)</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key" data-keycode="59">;</button>
+                    <button class="key" data-keycode="39">'</button>
+                    <button class="key" data-keycode="44">,</button>
+                    <button class="key" data-keycode="46">.</button>
+                    <button class="key" data-keycode="47">/</button>
+                    <button class="key" data-keycode="58">:</button>
+                    <button class="key" data-keycode="34">"</button>
+                    <button class="key" data-keycode="60">&lt;</button>
+                    <button class="key" data-keycode="62">&gt;</button>
+                    <button class="key" data-keycode="63">?</button>
+                </div>
+
+                <div class="keyboard-row">
+                    <button class="key widest" data-keycode="32">Space</button>
+                    <button class="key wide" data-keycode="13">Enter</button>
+                    <button class="key wide" data-keycode="8">⌫</button>
+                </div>
+            </div>
+        </div>        <footer class="version">            <p>Version 1.5.0</p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
